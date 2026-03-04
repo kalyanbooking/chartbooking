@@ -1,111 +1,843 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INDRAJEET MATKA BOOKING WEBSITE</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: '#ff6b6b',
-          secondary: '#4ecdc4',
-          accent: '#ffd166',
-          dark: '#1a1a2e',
-          light: '#f8f9fa',
-          professional: '#2d3748'
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDRAJEET MATKA BOOKING WEBSITE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff6b6b',
+            secondary: '#4ecdc4',
+            accent: '#ffd166',
+            dark: '#1a1a2e',
+            light: '#f8f9fa',
+            professional: '#2d3748'
+          }
         }
       }
     }
-  }
-</script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
   
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    overflow-x: hidden;
-  }
-  
-  .card-container {
-    animation: fadeIn 0.8s ease-out;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .pulse {
-    animation: pulse 2s infinite;
-  }
-  
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
-  }
-  
-  .glow {
-    box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
-  }
-  
-  .input-field:focus {
-    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
-  }
-  
-  .btn-hover:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-  }
-  
-  .market-option {
-    transition: all 0.3s ease;
-  }
-  
-  .market-option:hover {
-    transform: scale(1.03);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .qr-code {
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
-  }
-  
-  .section-title {
-    position: relative;
-    padding-bottom: 12px;
-    margin-bottom: 24px;
-  }
-  
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(to right, #4ecdc4, #ff6b6b);
-    border-radius: 3px;
-  }
-  
-  .professional-card {
-    background: linear-gradient(145deg, #ffffff, #f5f7fa);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-  }
-  
-  .success-message {
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    
+    .card-container {
+      animation: fadeIn 0.8s ease-out;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+    }
+    
+    .glow {
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+    }
+    
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-3px);
+      box-shad7ow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    .market-option {
+      transition: all 0.3s ease;
+    }
+    
+    .market-option:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .qr-code {
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #4ecdc4, #ff6b6b);
+      border-radius: 3px;
+    }
+    
+    .professional-card {
+      background: linear-gradient(145deg, #ffffff, #f5f7fa);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .success-message {
+      animation: slideIn 0.6s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .receipt-box {
+      border-left: 4px solid #4ecdc4;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #4ecdc4;
+      box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transform: translateX(200%);
+      transition: transform 0.4s ease-out;
+      z-index: 1000;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .notification.success {
+      background: linear-gradient(to right, #4ade80, #22c55e);
+    }
+    
+    .notification.error {
+      background: linear-gradient(to right, #f87171, #ef4444);
+    }
+    
+    .timer {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+    
+    .history-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid #4ecdc4;
+    }
+    
+    .history-item:hover {
+      transform: translateX(8px);
+      border-left: 3px solid #ff6b6b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .market-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff6b6b;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .card-container {
+        margin: 10px;
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+      }
+      
+      .qr-code {
+        transform: scale(0.9);
+      }
+    }
+    
+    /* Live Results Styles */
+    .result-card {
+      transition: all 0.4s ease;
+      animation: fadeInUp 0.6s ease-out;
+      transform-origin: center;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .game-result {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    
+    .live-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .result-section {
+      background: linear-gradient(145deg, #fff9f9, #fef2f2);
+      border: 1px solid #fee2e2;
+      box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);
+    }
+    
+    .game-time {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #4ecdc4;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* New animations */
+    .animate-pulse-red {
+      animation: pulseRed 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulseRed {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.7s ease-out forwards;
+    }
+    
+    .animate-shake {
+      animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    @keyframes shake {
+      10%, 90% {
+        transform: translateX(-2px);
+      }
+      20%, 80% {
+        transform: translateX(2px);
+      }
+      30%, 50%, 70% {
+        transform: translateX(-5px);
+      }
+      40%, 60% {
+        transform: translateX(5px);
+      }
+    }
+    
+    .animate-bounce-slow {
+      animation: bounce 2.5s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+    
+    .animate-rotate {
+      animation: rotate 3s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .animate-color-change {
+      animation: colorChange 3s infinite;
+    }
+    
+    @keyframes colorChange {
+      0% { color: #ff6b6b; }
+      25% { color: #4ecdc4; }
+      50% { color: #ffd166; }
+      75% { color: #6a0572; }
+      100% { color: #ff6b6b; }
+    }
+    
+    .animate-gradient-shift {
+      animation: gradientShift 4s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-slide-in-left {
+      animation: slideInLeft 0.6s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-slide-in-right {
+      animation: slideInRight 0.6s ease-out;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-pop-in {
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes popIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .animate-glow-pulse {
+      animation: glowPulse 2.2s ease-in-out infinite;
+    }
+    
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255, 107, 107, 0.9);
+      }
+      100% {
+        box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+      }
+    }
+    
+    .animate-spin-slow {
+      animation: spinSlow 3.5s linear infinite;
+    }
+    
+    @keyframes spinSlow {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    .animate-pulse-scale {
+      animation: pulseScale 1.8s infinite;
+    }
+    
+    @keyframes pulseScale {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    .animate-wiggle {
+      animation: wiggle 0.7s ease-in-out;
+    }
+    
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      15% { transform: rotate(-10deg); }
+      30% { transform: rotate(10deg); }
+      45% { transform: rotate(-5deg); }
+      60% { transform: rotate(5deg); }
+      75% { transform: rotate(-2deg); }
+      90% { transform: rotate(2deg); }
+    }
+    
+    .animate-bounce-fast {
+      animation: bounceFast 0.8s infinite;
+    }
+    
+    @keyframes bounceFast {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    
+    .animate-flip {
+      animation: flip 1.2s ease-in-out;
+    }
+    
+    @keyframes flip {
+      0% { transform: perspective(400px) rotateY(0); }
+      50% { transform: perspective(400px) rotateY(90deg); }
+      100% { transform: perspective(400px) rotateY(0); }
+    }
+    
+    .animate-roll {
+      animation: roll 1.5s ease-out;
+    }
+    
+    @keyframes roll {
+      0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    
+    .animate-typewriter {
+      animation: typewriter 3.5s steps(40, end);
+    }
+    
+    @keyframes typewriter {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+    
+    .animate-fade-in-delayed {
+      animation: fadeInDelayed 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeInDelayed {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    /* Chart styles */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+      animation: slideIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideIn {
+      from {transform: translateY(-50px);}
+      to {transform: translateY(0);}
+    }
+
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+    }
+
+    .close-modal:hover {
+      color: black;
+    }
+
+    /* Animation for GIFs */
+    .gif-animation {
+      animation: gifFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes gifFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Additional styles for game markets */
+    .market-header {
+      position: relative;
+    }
+    
+    .market-header::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #4ecdc4, #ff6b6b);
+      border-radius: 1px;
+    }
+    
+    .market-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .market-item:hover {
+      transform: translateX(5px);
+      border-left: 3px solid #4ecdc4;
+    }
+    
+    /* Live Results Integration Styles */
+    .live-results-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .live-result-item {
+      flex: 1;
+      min-width: 220px;
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .live-result-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .result-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
+    
+    .result-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-active {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    
+    .status-upcoming {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    
+    .status-closed {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .result-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 10px 0;
+      min-height: 40px;
+    }
+    
+    .result-time {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    
+    .result-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f3f4f6;
+    }
+    
+    .result-footer span {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    
+    .last-result-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .last-result-value {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 0.9rem;
+    }
+    
+    .update-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+      animation: pulseDot 1.5s infinite;
+    }
+    
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    
+    /* Added for syncing with external site */
+    .sync-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: #0284c7;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      animation: pulse 2s infinite;
+    }
+    
+    .sync-indicator i {
+      font-size: 1rem;
+    }
+    
+    /* Chart Panel Styling */
+    .chart-panel {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container professional-card w-full max-w-4xl rounded-2xl p-6 space-y-6 transform transition-all duration-300 hover:scale-[1.01] animate-fade-in-up">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold tracking-wide text-professional flex items-center justify-center gap-3 animate-color-change">
+        <i class="fas fa-dice fa-spin text-primary animate-spin-slow"></i>
+        INDRAJEET MATKA BOOKING
+        <i class="fas fa-dice fa-spin text-primary animate-spin-slow"></i>
+      </h1>
+      <p class="text-sm text-gray-600 mt-2 animate-pulse-red">
+        Professional Secure Booking Platform
+      </p>
+    </div>
+    
+    <!-- Booking ID -->
+    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-xl border border-indigo-100 text-center font-semibold text-indigo-800 shadow-sm animate-gradient-shift">
+      <div class="text-xs text-indigo-600 uppercase tracking-wider mb-1">
+        Booking ID
+      </div>
+      <div id="bookingId" class="font-mono text-xl font-bold tracking-widest animate-pop-in">
+        SMB123456
+      </div>
+    </div>
+    
+    <!-- Live Date & Time -->
+    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-100 text-center font-semibold text-blue-800 shadow-sm animate-bounce-slow">
+      <div class="text-xs text-blue-600 uppercase tracking-wider mb-1">
+        Live Date &amp; Time
+      </div>
+      <div id="dateTime" class="font-mono text-base timer animate-pulse-red">
+        Loading...
+      </div>
+    </div>
+    
+    <!-- Live Results Section -->
+    <div class="result-section p-5 rounded-xl mb-6 animate-slide-in-right">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-bolt text-yellow-500 animate-spin"></i>
+          Live Game Results
+        </h2>
+        <div class="sync-indicator">
+          <i class="fas fa-sync-alt"></i>
+          <span>Synchronizing with dpboss.boston</span>
+        </div>
+      </div>
+      
+      <div class="live-results-container">
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Kalyan Night</div>
+            <span class="result-status status-active">Active</span>
+          </div>
+          <div class="result-value" id="kalyanResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="kalyanLastResult">--</span>
+          </div>
+        </div>
+        
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Milan Night</div>
+            <span class="result-status status-active">Active</span>
+          </div>
+          <div class="result-value" id="milanResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="milanLastResult">--</span>
+          </div>
+        </div>
+        
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Main Bazar</div>
+            <span class="result-status status-upcoming">Upcoming</span>
+          </div>
+          <div class="result-value" id="mainBazarResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="mainBazarLastResult">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+   .success-message {
     animation: slideIn 0.6s ease-out;
   }
   
