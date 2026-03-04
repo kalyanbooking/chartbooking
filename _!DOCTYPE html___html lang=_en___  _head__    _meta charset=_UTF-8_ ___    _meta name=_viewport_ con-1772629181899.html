@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INDRAJEET MATKA BOOKING WEBSITE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff6b6b',
+            secondary: '#4ecdc4',
+            accent: '#ffd166',
+            dark: '#1a1a2e',
+            light: '#f8f9fa',
+            professional: '#2d3748'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    
+    .card-container {
+      animation: fadeIn 0.8s ease-out;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+    }
+    
+    .glow {
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+    }
+    
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    .market-option {
+      transition: all 0.3s ease;
+    }
+    
+    .market-option:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .qr-code {
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #4ecdc4, #ff6b6b);
+      border-radius: 3px;
+    }
+    
+    .professional-card {
+      background: linear-gradient(145deg, #ffffff, #f5f7fa);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .success-message {
+      animation: slideIn 0.6s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .receipt-box {
+      border-left: 4px solid #4ecdc4;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #4ecdc4;
+      box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transform: translateX(200%);
+      transition: transform 0.4s ease-out;
+      z-index: 1000;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .notification.success {
+      background: linear-gradient(to right, #4ade80, #22c55e);
+    }
+    
+    .notification.error {
+      background: linear-gradient(to right, #f87171, #ef4444);
+    }
+    
+    .timer {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+    
+    .history-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid #4ecdc4;
+    }
+    
+    .history-item:hover {
+      transform: translateX(8px);
+      border-left: 3px solid #ff6b6b;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .market-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff6b6b;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .card-container {
+        margin: 10px;
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+      }
+      
+      .qr-code {
+        transform: scale(0.9);
+      }
+    }
+    
+    /* Live Results Styles */
+    .result-card {
+      transition: all 0.4s ease;
+      animation: fadeInUp 0.6s ease-out;
+      transform-origin: center;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .game-result {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    
+    .live-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .result-section {
+      background: linear-gradient(145deg, #fff9f9, #fef2f2);
+      border: 1px solid #fee2e2;
+      box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1);
+    }
+    
+    .game-time {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #4ecdc4;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* New animations */
+    .animate-pulse-red {
+      animation: pulseRed 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulseRed {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.7s ease-out forwards;
+    }
+    
+    .animate-shake {
+      animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    @keyframes shake {
+      10%, 90% {
+        transform: translateX(-2px);
+      }
+      20%, 80% {
+        transform: translateX(2px);
+      }
+      30%, 50%, 70% {
+        transform: translateX(-5px);
+      }
+      40%, 60% {
+        transform: translateX(5px);
+      }
+    }
+    
+    .animate-bounce-slow {
+      animation: bounce 2.5s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+    
+    .animate-rotate {
+      animation: rotate 3s linear infinite;
+    }
+    
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .animate-color-change {
+      animation: colorChange 3s infinite;
+    }
+    
+    @keyframes colorChange {
+      0% { color: #ff6b6b; }
+      25% { color: #4ecdc4; }
+      50% { color: #ffd166; }
+      75% { color: #6a0572; }
+      100% { color: #ff6b6b; }
+    }
+    
+    .animate-gradient-shift {
+      animation: gradientShift 4s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-slide-in-left {
+      animation: slideInLeft 0.6s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-slide-in-right {
+      animation: slideInRight 0.6s ease-out;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-pop-in {
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    @keyframes popIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .animate-glow-pulse {
+      animation: glowPulse 2.2s ease-in-out infinite;
+    }
+    
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255, 107, 107, 0.9);
+      }
+      100% {
+        box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+      }
+    }
+    
+    .animate-spin-slow {
+      animation: spinSlow 3.5s linear infinite;
+    }
+    
+    @keyframes spinSlow {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    .animate-pulse-scale {
+      animation: pulseScale 1.8s infinite;
+    }
+    
+    @keyframes pulseScale {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    .animate-wiggle {
+      animation: wiggle 0.7s ease-in-out;
+    }
+    
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      15% { transform: rotate(-10deg); }
+      30% { transform: rotate(10deg); }
+      45% { transform: rotate(-5deg); }
+      60% { transform: rotate(5deg); }
+      75% { transform: rotate(-2deg); }
+      90% { transform: rotate(2deg); }
+    }
+    
+    .animate-bounce-fast {
+      animation: bounceFast 0.8s infinite;
+    }
+    
+    @keyframes bounceFast {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    
+    .animate-flip {
+      animation: flip 1.2s ease-in-out;
+    }
+    
+    @keyframes flip {
+      0% { transform: perspective(400px) rotateY(0); }
+      50% { transform: perspective(400px) rotateY(90deg); }
+      100% { transform: perspective(400px) rotateY(0); }
+    }
+    
+    .animate-roll {
+      animation: roll 1.5s ease-out;
+    }
+    
+    @keyframes roll {
+      0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    
+    .animate-typewriter {
+      animation: typewriter 3.5s steps(40, end);
+    }
+    
+    @keyframes typewriter {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+    
+    .animate-fade-in-delayed {
+      animation: fadeInDelayed 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeInDelayed {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    /* Chart styles */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+      animation: slideIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes slideIn {
+      from {transform: translateY(-50px);}
+      to {transform: translateY(0);}
+    }
+
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+    }
+
+    .close-modal:hover {
+      color: black;
+    }
+
+    /* Animation for GIFs */
+    .gif-animation {
+      animation: gifFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes gifFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* Additional styles for game markets */
+    .market-header {
+      position: relative;
+    }
+    
+    .market-header::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #4ecdc4, #ff6b6b);
+      border-radius: 1px;
+    }
+    
+    .market-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .market-item:hover {
+      transform: translateX(5px);
+      border-left: 3px solid #4ecdc4;
+    }
+    
+    /* Live Results Integration Styles */
+    .live-results-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .live-result-item {
+      flex: 1;
+      min-width: 220px;
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .live-result-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .result-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
+    
+    .result-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-active {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+    
+    .status-upcoming {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    
+    .status-closed {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .result-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 10px 0;
+      min-height: 40px;
+    }
+    
+    .result-time {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    
+    .result-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f3f4f6;
+    }
+    
+    .result-footer span {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    
+    .last-result-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .last-result-value {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 0.9rem;
+    }
+    
+    .update-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+      animation: pulseDot 1.5s infinite;
+    }
+    
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    
+    /* Added for syncing with external site */
+    .sync-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      color: #0284c7;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      animation: pulse 2s infinite;
+    }
+    
+    .sync-indicator i {
+      font-size: 1rem;
+    }
+    
+    /* Chart Panel Styling */
+    .chart-panel {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container professional-card w-full max-w-4xl rounded-2xl p-6 space-y-6 transform transition-all duration-300 hover:scale-[1.01] animate-fade-in-up">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold tracking-wide text-professional flex items-center justify-center gap-3 animate-color-change">
+        <i class="fas fa-dice fa-spin text-primary animate-spin-slow"></i>
+        INDRAJEET MATKA BOOKING
+        <i class="fas fa-dice fa-spin text-primary animate-spin-slow"></i>
+      </h1>
+      <p class="text-sm text-gray-600 mt-2 animate-pulse-red">
+        Professional Secure Booking Platform
+      </p>
+    </div>
+    
+    <!-- Booking ID -->
+    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-xl border border-indigo-100 text-center font-semibold text-indigo-800 shadow-sm animate-gradient-shift">
+      <div class="text-xs text-indigo-600 uppercase tracking-wider mb-1">
+        Booking ID
+      </div>
+      <div id="bookingId" class="font-mono text-xl font-bold tracking-widest animate-pop-in">
+        SMB123456
+      </div>
+    </div>
+    
+    <!-- Live Date & Time -->
+    <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-100 text-center font-semibold text-blue-800 shadow-sm animate-bounce-slow">
+      <div class="text-xs text-blue-600 uppercase tracking-wider mb-1">
+        Live Date &amp; Time
+      </div>
+      <div id="dateTime" class="font-mono text-base timer animate-pulse-red">
+        Loading...
+      </div>
+    </div>
+    
+    <!-- Live Results Section -->
+    <div class="result-section p-5 rounded-xl mb-6 animate-slide-in-right">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-bolt text-yellow-500 animate-spin"></i>
+          Live Game Results
+        </h2>
+        <div class="sync-indicator">
+          <i class="fas fa-sync-alt"></i>
+          <span>Synchronizing with dpboss.boston</span>
+        </div>
+      </div>
+      
+      <div class="live-results-container">
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Kalyan Night</div>
+            <span class="result-status status-active">Active</span>
+          </div>
+          <div class="result-value" id="kalyanResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="kalyanLastResult">--</span>
+          </div>
+        </div>
+        
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Milan Night</div>
+            <span class="result-status status-active">Active</span>
+          </div>
+          <div class="result-value" id="milanResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="milanLastResult">--</span>
+          </div>
+        </div>
+        
+        <div class="live-result-item animate-fade-in-up">
+          <div class="result-header">
+            <div class="result-title">Main Bazar</div>
+            <span class="result-status status-upcoming">Upcoming</span>
+          </div>
+          <div class="result-value" id="mainBazarResult">--</div>
+          <div class="result-time">Updated: Just now</div>
+          <div class="result-footer">
+            <span class="last-result-label">Last Result:</span>
+            <span class="last-result-value" id="mainBazarLastResult">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- All Game Markets Section -->
+    <div class="result-section p-5 rounded-xl mb-6 animate-slide-in-right">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-gamepad text-blue-500 animate-spin"></i>
+          All Game Markets
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Market items will be populated here -->
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-left">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Kalyan Night
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹600</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            09:30 PM - 11:30 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-right">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Milan Night
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹600</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            09:10 PM - 11:10 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-left">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Main Bazar
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹600</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            10:00 PM - 12:10 AM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+              <i class="fas fa-clock mr-1"></i>
+              Upcoming
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-right">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Rajdhani Night
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹600</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            09:35 PM - 11:45 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              <i class="fas fa-clock mr-1"></i>
+              Closed
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-left">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Sridevi Night
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹600</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            07:15 PM - 08:15 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-right">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Kalyan Day
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹700</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            04:02 PM - 06:02 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <!-- New markets added -->
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-left">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Kalyan
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹700</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            04:02 PM - 06:02 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-right">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Milan Day
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹550</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            03:00 PM - 05:00 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+        <div class="market-item bg-white rounded-xl p-4 shadow-sm border border-gray-100 animate-slide-in-left">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="font-semibold text-gray-700 animate-color-change">
+              Time Bazar
+            </h3>
+            <span class="text-sm font-bold text-green-600">₹550</span>
+          </div>
+          <div class="text-xs text-gray-500 mb-2">
+            01:00 PM - 02:00 PM
+          </div>
+          <div class="mt-2">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-clock mr-1"></i>
+              Active
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <form id="paymentForm" class="space-y-6">
+      <div class="section-title animate-slide-in-right">
+        <label class="block font-semibold mb-2 text-gray-700 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-store text-secondary animate-pulse-red"></i>
+          Select Market
+        </label>
+      </div>
+      <div class="grid grid-cols-1 gap-3">
+        <div class="relative animate-shake">
+          <select id="market" required="" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent input-field transition-all duration-300 appearance-none bg-white animate-gradient-shift">
+            <option value="">
+              -- Select Market --
+            </option>
+            <option value="600" class="market-option bg-white animate-pulse-red">
+              Kalyan Night - ₹600 (09:30 PM - 11:30 PM)
+            </option>
+            <option value="600" class="market-option bg-white animate-pulse-red">
+              Milan Night  - ₹600  (09:10 PM - 11:10 PM)
+            </option>
+            <option value="600" class="market-option bg-white animate-pulse-red">
+              Main Bazar - ₹600 (10:00 PM - 12:10 AM)
+            </option>
+            <option value="600" class="market-option bg-white animate-pulse-red">
+              Rajdhani Night - ₹600 (09:35 PM - 11:45 PM)
+            </option>
+            <option value="600" class="market-option bg-white animate-pulse-red">
+              Sridevi Night  - ₹600 (07:15 PM - 08:15 PM)
+            </option>
+            <option value="700" class="market-option bg-white animate-pulse-red">
+              Kalyan - ₹700 (04:02 PM - 06:02 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Milan Day - ₹550 ( 03:00 PM - 05:00 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Rajdhani Day - ₹550 (03:15 PM - 05:15 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Sridevi - ₹550 (11:35 AM - 12:35 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Timebazar - ₹550 ( 01:00 PM - 02:00 PM)
+            </option>
+            <!-- New markets added -->
+            <option value="700" class="market-option bg-white animate-pulse-red">
+              Kalyan - ₹700 (04:02 PM - 06:02 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Milan Day - ₹550 (03:00 PM - 05:00 PM)
+            </option>
+            <option value="550" class="market-option bg-white animate-pulse-red">
+              Time Bazar - ₹550 (01:00 PM - 02:00 PM)
+            </option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <i class="fas fa-chevron-down animate-spin-slow"></i>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Button to view website panel chart -->
+      <div class="animate-fade-in-up">
+        <button type="button" onclick="openChartPanel()" class="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-600 transition duration-300 transform hover:scale-105 btn-hover shadow-lg animate-glow-pulse flex items-center justify-center gap-2">
+          <i class="fas fa-chart-line mr-2"></i>
+          View Market Panel Chart
+        </button>
+      </div>
+      
+      <div class="animate-fade-in-up">
+        <label class="block font-semibold mb-2 text-gray-700 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-rupee-sign text-green-600 animate-pulse-red"></i>
+          Amount
+        </label>
+        <input type="text" id="amount" class="w-full p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl font-semibold text-green-700 text-center border border-green-200 input-field animate-gradient-shift" readonly="" />
+      </div>
+      
+      <div class="animate-fade-in-up">
+        <label class="block font-semibold mb-2 text-gray-700 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-user text-blue-600 animate-pulse-red"></i>
+          Your Name
+        </label>
+        <input type="text" id="name" required="" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent input-field transition-all duration-300 animate-gradient-shift" />
+      </div>
+      
+      <div class="animate-fade-in-up">
+        <label class="block font-semibold mb-2 text-gray-700 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-phone text-orange-600 animate-pulse-red"></i>
+          Phone Number
+        </label>
+        <input type="tel" id="phone" required="" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent input-field transition-all duration-300 animate-gradient-shift" />
+      </div>
+      
+      <div class="animate-fade-in-up">
+        <label class="block font-semibold mb-2 text-gray-700 flex items-center gap-2 animate-color-change">
+          <i class="fas fa-map-marker-alt text-purple-600 animate-pulse-red"></i>
+          State
+        </label>
+        <select id="state" required="" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-secondary focus:border-transparent input-field transition-all duration-300 appearance-none bg-white animate-gradient-shift">
+          <option value="">
+            -- Select State --
+          </option>
+          <option value="Maharashtra" class="animate-pulse-red">
+            Maharashtra
+          </option>
+          <option value="Gujarat" class="animate-pulse-red">
+            Gujarat
+          </option>
+          <option value="Rajasthan" class="animate-pulse-red">
+            Rajasthan
+          </option>
+          <option value="Delhi" class="animate-pulse-red">
+            Delhi
+          </option>
+          <option value="Uttar Pradesh" class="animate-pulse-red">
+            Uttar Pradesh
+          </option>
+          <option value="Madhya Pradesh" class="animate-pulse-red">
+            Madhya Pradesh
+          </option>
+          <option value="Bihar" class="animate-pulse-red">
+            Bihar
+          </option>
+          <option value="West Bengal" class="animate-pulse-red">
+            West Bengal
+          </option>
+          <option value="Tamil Nadu" class="animate-pulse-red">
+            Tamil Nadu
+          </option>
+          <option value="Karnataka" class="animate-pulse-red">
+            Karnataka
+          </option>
+          <option value="Andhra Pradesh" class="animate-pulse-red">
+            Andhra Pradesh
+          </option>
+          <option value="Telangana" class="animate-pulse-red">
+            Telangana
+          </option>
+          <option value="Odisha" class="animate-pulse-red">
+            Odisha
+          </option>
+          <option value="Kerala" class="animate-pulse-red">
+            Kerala
+          </option>
+          <option value="Assam" class="animate-pulse-red">
+            Assam
+          </option>
+          <option value="Jharkhand" class="animate-pulse-red">
+            Jharkhand
+          </option>
+          <option value="Chhattisgarh" class="animate-pulse-red">
+            Chhattisgarh
+          </option>
+          <option value="Haryana" class="animate-pulse-red">
+            Haryana
+          </option>
+          <option value="Punjab" class="animate-pulse-red">
+            Punjab
+          </option>
+          <option value="Himachal Pradesh" class="animate-pulse-red">
+            Himachal Pradesh
+          </option>
+        </select>
+      </div>
+      
+      <div class="text-center p-5 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl border border-yellow-200 shadow-sm animate-slide-in-up">
+        <div class="flex justify-center mb-4">
+          <div class="qr-code bg-white p-4 rounded-lg shadow-md animate-bounce-slow">
+            <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="100" height="100" fill="#f0f0f0">
+              </rect>
+              <rect x="20" y="20" width="80" height="80" fill="#ffffff">
+              </rect>
+              <rect x="30" y="30" width="60" height="60" fill="#000000">
+              </rect>
+              <rect x="40" y="40" width="40" height="40" fill="#ffffff">
+              </rect>
+            </svg>
+          </div>
+        </div>
+        <div id="upiText" class="font-bold text-gray-800 mb-3 animate-color-change">
+          leviackerman9154@oksbi
+        </div>
+        <button type="button" onclick="copyUPI()" class="mt-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full hover:from-blue-600 hover:to-blue-700 transition duration-300 btn-hover shadow-md text-sm font-medium animate-pulse-red">
+          <i class="fas fa-copy mr-2"></i>
+          Copy UPI ID
+        </button>
+        <div class="mt-3 text-xs text-gray-600 flex items-center justify-center gap-1 animate-pulse-red">
+          <i class="fas fa-info-circle text-blue-500 animate-spin"></i>
+          <span>Scan QR or copy UPI for payment</span>
+        </div>
+      </div>
+      
+      <button type="submit" class="w-full py-4 bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold rounded-xl hover:from-red-600 hover:to-pink-600 transition duration-300 transform hover:scale-105 btn-hover shadow-lg animate-glow-pulse">
+        <i class="fas fa-paper-plane mr-2"></i>
+        Submit Booking
+      </button>
+      
+      <div id="successMsg" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-xl text-center font-bold shadow-sm border border-green-200 success-message animate-pop-in">
+        <i class="fas fa-check-circle mr-2"></i>
+        Booking Submitted Successfully!
+      </div>
+    </form>
+    
+    <div id="receipt" class="hidden mt-6 p-5 bg-gradient-to-br from-gray-50 to-slate-100 rounded-xl border border-gray-200 shadow-inner receipt-box animate-fade-in-up">
+      <h3 class="text-center font-bold text-gray-800 mb-4 text-lg flex items-center justify-center gap-2 section-title animate-color-change">
+        <i class="fas fa-receipt text-secondary animate-spin"></i>
+        Booking Receipt
+      </h3>
+      <div class="space-y-3">
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Booking ID:</span>
+          <span id="receiptId" class="font-mono text-gray-800 animate-color-change">SMB123456</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Date &amp; Time:</span>
+          <span id="receiptDateTime" class="text-gray-800 animate-color-change">Loading...</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Name:</span>
+          <span id="receiptName" class="text-gray-800 animate-color-change">-</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Phone:</span>
+          <span id="receiptPhone" class="text-gray-800 animate-color-change">-</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">State:</span>
+          <span id="receiptState" class="text-gray-800 animate-color-change">-</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Market:</span>
+          <span id="receiptMarket" class="text-gray-800 animate-color-change">-</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">Amount:</span>
+          <span id="receiptAmount" class="font-semibold text-green-600 animate-color-change">₹0</span>
+        </div>
+        <div class="flex justify-between animate-fade-in-up">
+          <span class="font-medium text-gray-600">UPI ID:</span>
+          <span id="receiptUPI" class="font-mono text-gray-800 animate-color-change">-</span>
+        </div>
+      </div>
+      <div class="flex justify-center gap-3 mt-6 animate-fade-in-up">
+        <button onclick="printReceipt()" class="px-5 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 transition duration-300 btn-hover shadow-sm animate-pulse-red">
+          <i class="fas fa-print mr-2"></i>
+          Print
+        </button>
+        <button id="okButton" onclick="confirmBooking()" class="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 btn-hover shadow-sm animate-pulse-red">
+          <i class="fas fa-check mr-2"></i>
+          OK
+        </button>
+      </div>
+    </div>
+    
+    <div class="mt-6 p-4 bg-gradient-to-br from-gray-50 to-slate-100 rounded-xl border border-gray-200 shadow-inner animate-fade-in-up">
+      <h3 class="font-bold text-gray-800 mb-3 text-lg flex items-center justify-center gap-2 animate-color-change">
+        <i class="fas fa-history text-secondary animate-spin"></i>
+        Recent Bookings
+      </h3>
+      <div id="bookingHistory" class="space-y-2 max-h-40 overflow-y-auto">
+        <div class="history-item p-3 bg-white rounded-lg flex justify-between items-center cursor-pointer animate-slide-in-left" onclick="showBookingDetails(this)">
+          <div>
+            <div class="font-medium animate-color-change">
+              SMB123456
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              Kalyan - ₹600
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              Phone: ****1234
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-medium animate-color-change">
+              Today
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              10:30 AM
+            </div>
+          </div>
+        </div>
+        <div class="history-item p-3 bg-white rounded-lg flex justify-between items-center cursor-pointer animate-slide-in-right" onclick="showBookingDetails(this)">
+          <div>
+            <div class="font-medium animate-color-change">
+              SMB123457
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              Milan Day - ₹550
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              Phone: ****5678
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-medium animate-color-change">
+              Yesterday
+            </div>
+            <div class="text-xs text-gray-500 animate-pulse-red">
+              02:15 PM
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="notification" class="notification animate-fade-in-up">
+  </div>
+  
+  <!-- Chart Modal -->
+  <div id="chartModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeChartPanel()">×</span>
+      <h3 class="text-xl font-bold text-gray-800 mb-4">
+        Market Panel Chart
+      </h3>
+      <div class="chart-container">
+        <iframe src="https://dpboss.boston" class="chart-panel" title="Market Panel Chart"></iframe>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const marketSelect = document.getElementById("market");
+    const amountField = document.getElementById("amount");
+    const bookingIdSpan = document.getElementById("bookingId");
+    const notification = document.getElementById("notification");
+    const bookingHistory = document.getElementById("bookingHistory");
+    const okButton = document.getElementById("okButton");
+    const liveResultsContainer = document.getElementById("liveResultsContainer");
+    
+    // Generate Booking ID
+    function generateBookingID(){
+      return "SMB" + Date.now().toString().slice(-6);
+    }
+    
+    bookingIdSpan.innerText = generateBookingID();
+    
+    // Live Date & Time (Single Line Script)
+    setInterval(() => {
+      const now = new Date();
+      const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        timeZone: 'Asia/Kolkata'
+      };
+      document.getElementById("dateTime").innerText = now.toLocaleDateString('en-IN', options);
+    }, 1000);
+    
+    // Update amount
+    marketSelect.addEventListener("change", () => {
+      const selectedOption = marketSelect.options[marketSelect.selectedIndex];
+      const amount = selectedOption.value;
+      amountField.value = amount ? `₹${amount}` : '';
+    });
+    
+    // Show notification
+    function showNotification(message, type = 'success') {
+      notification.textContent = message;
+      notification.className = `notification ${type} show animate-fade-in-up`;
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Copy UPI
+    function copyUPI(){
+      const upiText = document.getElementById("upiText").innerText;
+      navigator.clipboard.writeText(upiText).then(() => {
+        showNotification('UPI ID copied to clipboard!', 'success');
+      }).catch(err => {
+        showNotification('Failed to copy UPI ID', 'error');
+      });
+      
+      const btn = document.querySelector('.btn-hover');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+      
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 2000);
+    }
+    
+    // Open chart panel
+    function openChartPanel() {
+      const modal = document.getElementById('chartModal');
+      modal.style.display = "block";
+    }
+    
+    // Close chart panel
+    function closeChartPanel() {
+      const modal = document.getElementById('chartModal');
+      modal.style.display = "none";
+    }
+    
+    // Form submit
+    document.getElementById("paymentForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const marketText = marketSelect.options[marketSelect.selectedIndex].text;
+      const marketValue = marketSelect.value;
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const state = document.getElementById("state").value;
+      const bookingID = generateBookingID();
+      
+      if(marketValue === "" || name === "" || phone === "" || state === ""){
+        showNotification('Please complete all details.', 'error');
+        return;
+      }
+      
+      document.getElementById("successMsg").classList.remove("hidden");
+      showNotification('Booking submitted successfully!', 'success');
+      
+      document.getElementById("receiptId").innerText = bookingID;
+      document.getElementById("receiptDateTime").innerText = document.getElementById("dateTime").innerText;
+      document.getElementById("receiptName").innerText = name;
+      document.getElementById("receiptPhone").innerText = formatPhoneNumber(phone);
+      document.getElementById("receiptState").innerText = state;
+      document.getElementById("receiptMarket").innerText = marketText;
+      document.getElementById("receiptAmount").innerText = `₹${marketValue}`;
+      document.getElementById("receiptUPI").innerText = document.getElementById("upiText").innerText;
+      document.getElementById("receipt").classList.remove("hidden");
+      
+      // Add to history
+      const formattedPhone = formatPhoneNumber(phone);
+      const historyItem = document.createElement('div');
+      historyItem.className = 'history-item p-3 bg-white rounded-lg flex justify-between items-center cursor-pointer animate-slide-in-left';
+      historyItem.setAttribute('onclick', 'showBookingDetails(this)');
+      historyItem.innerHTML = `
+        <div>
+          <div class="font-medium animate-color-change">${bookingID}</div>
+          <div class="text-xs text-gray-500 animate-pulse-red">${marketText}</div>
+          <div class="text-xs text-gray-500 animate-pulse-red">Phone: ${formattedPhone}</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs font-medium animate-color-change">Today</div>
+          <div class="text-xs text-gray-500 animate-pulse-red">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+        </div>
+      `;
+      
+      // Store in localStorage
+      const bookingData = {
+        id: bookingID,
+        date: new Date().toLocaleString(),
+        name: name,
+        phone: formattedPhone,
+        market: marketText,
+        amount: `₹${marketValue}`,
+        upi: document.getElementById("upiText").innerText
+      };
+      
+      let bookings = JSON.parse(localStorage.getItem('recentBookings')) || [];
+      bookings.unshift(bookingData);
+      localStorage.setItem('recentBookings', JSON.stringify(bookings));
+      
+      // Update UI
+      bookingHistory.insertBefore(historyItem, bookingHistory.firstChild);
+      
+      document.getElementById("paymentForm").querySelectorAll("input, select, button").forEach(el => el.disabled = true);
+    });
+    
+    // Format phone number to show last 4 digits
+    function formatPhoneNumber(phone) {
+      if (phone.length > 4) {
+        return `****${phone.slice(-4)}`;
+      }
+      return phone;
+    }
+    
+    // Print receipt
+    function printReceipt(){
+      const receipt = document.getElementById("receipt").innerHTML;
+      const newWindow = window.open("", "Print-Window", "width=600,height=600");
+      newWindow.document.write('<html><head><title>Receipt</title><style>body{font-family:Arial,sans-serif;}h3{text-align:center;}</style></head><body>' + receipt + '</body></html>');
+      newWindow.document.close();
+      newWindow.focus();
+      newWindow.print();
+    }
+    
+    // Confirm booking (redirect to WhatsApp)
+    function confirmBooking(){
+      // Disable button during redirect
+      okButton.disabled = true;
+      okButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirecting...';
+      
+      // After 5 seconds, redirect to WhatsApp
+      setTimeout(() => {
+        window.location.href = "https://wa.me/919494347349";
+      }, 5000);
+    }
+    
+    // Show booking details when clicking on history item
+    function showBookingDetails(element) {
+      const bookingId = element.querySelector('.font-medium').textContent;
+      const marketInfo = element.querySelector('.text-xs.text-gray-500').textContent;
+      const phoneInfo = element.querySelector('.text-xs.text-gray-500').textContent.split('Phone: ')[1];
+      
+      // Get the name from the element
+      const nameElement = element.querySelector('.font-medium');
+      let name = nameElement.textContent;
+      
+      // Display in receipt section
+      document.getElementById("receiptId").innerText = bookingId;
+      document.getElementById("receiptDateTime").innerText = document.getElementById("dateTime").innerText;
+      document.getElementById("receiptName").innerText = name || '-';
+      document.getElementById("receiptPhone").innerText = phoneInfo;
+      document.getElementById("receiptState").innerText = '-';
+      document.getElementById("receiptMarket").innerText = marketInfo;
+      document.getElementById("receiptAmount").innerText = marketInfo.includes('600') ? '₹600' : '₹550';
+      document.getElementById("receiptUPI").innerText = document.getElementById("upiText").innerText;
+      document.getElementById("receipt").classList.remove("hidden");
+      
+      // Show notification
+      showNotification(`Showing details for booking: ${bookingId}`, 'success');
+    }
+
+    // Simulated live results data fetch and update
+    function updateLiveResults() {
+      // Simulate fetching from an API
+      const markets = [
+        { id: 'kalyan', prefix: 'Kalyan' },
+        { id: 'milan', prefix: 'Milan' },
+        { id: 'mainBazar', prefix: 'Main Bazar' }
+      ];
+      
+      markets.forEach((market, index) => {
+        const resultElement = document.getElementById(`${market.id}Result`);
+        const lastResultElement = document.getElementById(`${market.id}LastResult`);
+        
+        if (resultElement && lastResultElement) {
+          // Simulate changing result values
+          const newResult = Math.floor(Math.random() * 100);
+          const lastResult = Math.floor(Math.random() * 100);
+          
+          resultElement.textContent = newResult.toString().padStart(2, '0');
+          lastResultElement.textContent = lastResult.toString().padStart(2, '0');
+          
+          // Update time indicator
+          const timeElement = resultElement.parentElement.querySelector('.result-time');
+          if (timeElement) {
+            timeElement.textContent = `Updated: ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+          }
+        }
+      });
+    }
+
+    // Update every 5 seconds to simulate live updates
+    setInterval(updateLiveResults, 5000);
+    
+    // Initial update
+    updateLiveResults();
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('chartModal');
+      if (event.target === modal) {
+        closeChartPanel();
+      }
+    }
+    
+    // Load recent bookings from localStorage on page load
+    window.onload = function() {
+      const bookings = JSON.parse(localStorage.getItem('recentBookings')) || [];
+      const historyContainer = document.getElementById('bookingHistory');
+      
+      bookings.forEach(booking => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item p-3 bg-white rounded-lg flex justify-between items-center cursor-pointer animate-slide-in-left';
+        historyItem.setAttribute('onclick', `showBookingDetails(this)`);
+        historyItem.innerHTML = `
+          <div>
+            <div class="font-medium animate-color-change">${booking.id}</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">${booking.market}</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">Phone: ${booking.phone}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-medium animate-color-change">Today</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">${booking.date.split(',')[1]}</div>
+          </div>
+        `;
+        historyContainer.appendChild(historyItem);
+      });
+    }
+  </script>
+</body>
+</html>
