@@ -507,6 +507,56 @@
     height: 300px;
     margin-top: 20px;
   }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    animation: slideIn 0.3s;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  @keyframes slideIn {
+    from {transform: translateY(-50px);}
+    to {transform: translateY(0);}
+  }
+
+  .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+
+  .close-modal:hover {
+    color: black;
+  }
 </style>
 </head>
 <body>
@@ -737,7 +787,7 @@
         <button onclick="printReceipt()" class="px-5 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 transition duration-300 btn-hover shadow-sm animate-pulse-red">
           <i class="fas fa-print mr-2"></i>Print
         </button>
-        <button onclick="confirmBooking()" class="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 btn-hover shadow-sm animate-pulse-red">
+        <button id="okButton" onclick="confirmBooking()" class="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 btn-hover shadow-sm animate-pulse-red">
           <i class="fas fa-check mr-2"></i>OK
         </button>
       </div>
@@ -776,12 +826,26 @@
 
   <div id="notification" class="notification animate-fade-in-up"></div>
 
+  <!-- Chart Modal -->
+  <div id="chartModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeChartPanel()">&times;</span>
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Market Panel Chart</h3>
+      <div class="chart-container">
+        <div class="flex items-center justify-center h-full">
+          <p class="text-gray-600">Chart Preview</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const marketSelect = document.getElementById("market");
     const amountField = document.getElementById("amount");
     const bookingIdSpan = document.getElementById("bookingId");
     const notification = document.getElementById("notification");
     const bookingHistory = document.getElementById("bookingHistory");
+    const okButton = document.getElementById("okButton");
     
     // Generate Booking ID
     function generateBookingID(){
@@ -842,44 +906,14 @@
     
     // Open chart panel
     function openChartPanel() {
-      const marketValue = marketSelect.value;
-      if (!marketValue) {
-        showNotification('Please select a market first', 'error');
-        return;
-      }
-      
-      // Create iframe for the chart panel
-      const chartContainer = document.createElement('div');
-      chartContainer.id = 'chartModal';
-      chartContainer.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4';
-      chartContainer.innerHTML = `
-        <div class="bg-white rounded-xl w-full max-w-4xl h-4/5 flex flex-col">
-          <div class="p-4 border-b flex justify-between items-center">
-            <h3 class="text-xl font-bold text-gray-800">Market Panel Chart</h3>
-            <button onclick="closeChartPanel()" class="text-gray-500 hover:text-gray-700">
-              <i class="fas fa-times text-2xl"></i>
-            </button>
-          </div>
-          <div class="flex-1 p-4 overflow-auto">
-            <iframe 
-              src="https://dpboss.boston" 
-              class="w-full h-full border-0 rounded-lg"
-              title="Market Panel Chart"
-              sandbox="allow-scripts allow-same-origin allow-forms">
-            </iframe>
-          </div>
-        </div>
-      `;
-      
-      document.body.appendChild(chartContainer);
+      const modal = document.getElementById('chartModal');
+      modal.style.display = "block";
     }
     
     // Close chart panel
     function closeChartPanel() {
       const modal = document.getElementById('chartModal');
-      if (modal) {
-        modal.remove();
-      }
+      modal.style.display = "none";
     }
     
     // Form submit
@@ -926,6 +960,23 @@
           <div class="text-xs text-gray-500 animate-pulse-red">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
         </div>
       `;
+      
+      // Store in localStorage
+      const bookingData = {
+        id: bookingID,
+        date: new Date().toLocaleString(),
+        name: name,
+        phone: formattedPhone,
+        market: marketText,
+        amount: `₹${marketValue}`,
+        upi: document.getElementById("upiText").innerText
+      };
+      
+      let bookings = JSON.parse(localStorage.getItem('recentBookings')) || [];
+      bookings.unshift(bookingData);
+      localStorage.setItem('recentBookings', JSON.stringify(bookings));
+      
+      // Update UI
       bookingHistory.insertBefore(historyItem, bookingHistory.firstChild);
       
       document.getElementById("paymentForm").querySelectorAll("input, select, button").forEach(el => el.disabled = true);
@@ -949,10 +1000,16 @@
       newWindow.print();
     }
     
-    // Confirm booking
+    // Confirm booking (redirect to WhatsApp)
     function confirmBooking(){
-      // Redirect to WhatsApp immediately
-      window.location.href = "https://wa.me/919494347349";
+      // Disable button during redirect
+      okButton.disabled = true;
+      okButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirecting...';
+      
+      // After 5 seconds, redirect to WhatsApp
+      setTimeout(() => {
+        window.location.href = "https://wa.me/919494347349";
+      }, 5000);
     }
     
     // Show booking details when clicking on history item
@@ -961,21 +1018,9 @@
       const marketInfo = element.querySelector('.text-xs.text-gray-500').textContent;
       const phoneInfo = element.querySelector('.text-xs.text-gray-500').textContent.split('Phone: ')[1];
       
-      // Get the name from the element (fixed: correctly extract name instead of phone)
-      const nameElement = element.querySelector('.text-xs.text-gray-500').previousSibling;
-      let name = '-';
-      if (nameElement && nameElement.nodeType === Node.TEXT_NODE) {
-        const text = nameElement.textContent.trim();
-        if (text.startsWith('Phone:')) {
-          // This means we need to look at previous sibling
-          const prevSibling = nameElement.previousSibling;
-          if (prevSibling && prevSibling.nodeType === Node.TEXT_NODE) {
-            name = prevSibling.textContent.trim();
-          }
-        } else {
-          name = text;
-        }
-      }
+      // Get the name from the element
+      const nameElement = element.querySelector('.font-medium');
+      let name = nameElement.textContent;
       
       // Display in receipt section
       document.getElementById("receiptId").innerText = bookingId;
@@ -1095,6 +1140,38 @@
         timeElements[0].textContent = time;
       }
     });
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('chartModal');
+      if (event.target === modal) {
+        closeChartPanel();
+      }
+    }
+    
+    // Load recent bookings from localStorage on page load
+    window.onload = function() {
+      const bookings = JSON.parse(localStorage.getItem('recentBookings')) || [];
+      const historyContainer = document.getElementById('bookingHistory');
+      
+      bookings.forEach(booking => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item p-3 bg-white rounded-lg flex justify-between items-center cursor-pointer animate-slide-in-left';
+        historyItem.setAttribute('onclick', `showBookingDetails(this)`);
+        historyItem.innerHTML = `
+          <div>
+            <div class="font-medium animate-color-change">${booking.id}</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">${booking.market}</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">Phone: ${booking.phone}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-medium animate-color-change">Today</div>
+            <div class="text-xs text-gray-500 animate-pulse-red">${booking.date.split(',')[1]}</div>
+          </div>
+        `;
+        historyContainer.appendChild(historyItem);
+      });
+    }
   </script>
 </body>
 </html>
